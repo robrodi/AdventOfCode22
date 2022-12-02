@@ -19,7 +19,9 @@ fn score2(l: &str) -> i32 {
     }
 }
 
-fn draw_score(input: char) -> i32 { opp_to_int(input) }
+fn draw_score(input: char) -> i32 {
+    opp_to_int(input)
+}
 fn win_score(input: char) -> i32 {
     match input {
         'A' => 2, // rock
@@ -36,18 +38,26 @@ fn lose_score(input: char) -> i32 {
         _ => 0,
     }
 }
-fn opp_to_int(i: char) -> i32 { i as i32 - 64 }
-fn my_to_int(i: char) -> i32 { i as i32 - 87 }
+fn opp_to_int(i: char) -> i32 {
+    i as i32 - 64
+}
+fn my_to_int(i: char) -> i32 {
+    i as i32 - 87
+}
 fn score_l(l: &str) -> i32 {
     score(l.chars().next().unwrap(), l.chars().nth(2).unwrap())
 }
 fn score(opp: char, mine: char) -> i32 {
-    let opp_pick =  opp_to_int(opp);
+    let opp_pick = opp_to_int(opp);
     let my_pick = my_to_int(mine);
 
     let mut result: i32 = 0;
-    if opp_pick == my_pick { result = 3; } // tie
-    if my_pick - opp_pick % 3 == 1 { result = 6; }
+    if opp_pick == my_pick {
+        result = 3;
+    } // tie
+    if my_pick - opp_pick % 3 == 1 {
+        result = 6;
+    }
 
     my_pick + result
 }
