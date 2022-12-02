@@ -7,6 +7,7 @@ pub fn part_two(input: &str) -> Option<u32> {
     let scores: Vec<u32> = input.lines().map(score2).collect();
     Some(scores.iter().sum())
 }
+
 fn score2(l: &str) -> u32 {
     let opp = l.chars().next().unwrap();
     match l.chars().nth(2).unwrap() {
