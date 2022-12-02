@@ -1,5 +1,6 @@
 pub fn part_one(input: &str) -> Option<u32> {
-    None
+    let scores: Vec<u32> = input.lines().map(|l|  score_l(l)).collect();
+    Some(scores.iter().sum())
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
@@ -8,6 +9,9 @@ pub fn part_two(input: &str) -> Option<u32> {
 
 fn parse(){
 
+}
+fn score_l(l: &str) -> u32{
+    score(l.chars().nth(0).unwrap(), l.chars().nth(2).unwrap())
 }
 fn score(opp: char, mine: char) -> u32 {
     let myPick = match mine {
