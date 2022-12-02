@@ -4,11 +4,43 @@ pub fn part_one(input: &str) -> Option<u32> {
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
-    None
+    let scores: Vec<u32>  = input.lines().map(|l| score2(l)).collect();
+    Some(scores.iter().sum())
+}
+fn score2(l: &str) -> u32{
+    let opp = l.chars().nth(0).unwrap();
+    let outcome = l.chars().nth(2).unwrap();
+    match outcome{
+        'X' => lose_score(opp),
+        'Y' => draw_score(opp),
+        'Z' => win_score(opp),
+        _ => 0
+    }
 }
 
-fn parse(){
-
+fn draw_score (input: char) -> u32{
+    3 + match input {
+        'A' => 1, // rock
+        'B' => 2, // paper
+        'C' => 3, // scissors
+        other => 0
+    }
+}
+fn win_score (input: char) -> u32{
+    6 + match input {
+        'A' => 2, // rock
+        'B' => 3, // paper
+        'C' => 1, // scissors
+        other => 0
+    }
+}
+fn lose_score (input: char) -> u32{
+    match input {
+        'A' => 3, // rock
+        'B' => 1, // paper
+        'C' => 2, // scissors
+        other => 0
+    }
 }
 fn score_l(l: &str) -> u32{
     score(l.chars().nth(0).unwrap(), l.chars().nth(2).unwrap())
@@ -56,10 +88,10 @@ mod tests {
         assert_eq!(part_one(&input), Some(15));
     }
 
-    // #[test]
+    #[test]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 2);
-        assert_eq!(part_two(&input), None);
+        assert_eq!(part_two(&input), Some(12));
     }
 
     #[test]
@@ -68,5 +100,11 @@ mod tests {
         assert_eq!(score('A', 'Y'), 8, "Paper, Win");
         assert_eq!(score('B', 'X'), 1, "Rock, Loss");
         assert_eq!(score('C', 'Z'), 6, "scissor, tie");
+    }
+    #[test]
+    fn test_score_2(){
+        assert_eq!(score2("A Y"), 4, "Rock, Draw");
+        assert_eq!(score2("B X"), 1, "Paper, Loss");
+        assert_eq!(score2("C Z"), 7, "scissor, Win");
     }
 }
