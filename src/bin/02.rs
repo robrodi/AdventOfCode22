@@ -21,12 +21,14 @@ fn score2(l: &str) -> i32 {
 
 fn draw_score(input: char) -> i32 { 3 + opp_to_int(input) }
 fn win_score(input: char) -> i32 {
-    6 + match input {
-        'A' => 2, // rock
-        'B' => 3, // paper
-        'C' => 1, // scissors
-        _ => 0,
-    }
+    
+    6 + ((opp_to_int(input) + 1) % 3) + 1;
+    // match input {
+    //     'A' => 2, // rock
+    //     'B' => 3, // paper
+    //     'C' => 1, // scissors
+    //     _ => 0,
+    // }
 }
 fn lose_score(input: char) -> i32 {
     match input {
