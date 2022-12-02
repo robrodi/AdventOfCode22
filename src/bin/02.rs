@@ -14,29 +14,30 @@ fn score_l(l: &str) -> u32{
     score(l.chars().nth(0).unwrap(), l.chars().nth(2).unwrap())
 }
 fn score(opp: char, mine: char) -> u32 {
-    let myPick = match mine {
+    let my_pick = match mine {
         'Y' => 2,
         'X' => 1,
         'Z' => 3,
         other => 0
     };
 
-    let mut result: u32 = 0;
-    if opp == mine{
+    let result: u32;
+    if (opp == 'C' && mine == 'Z') || // tie scissor
+        (opp == 'B' && mine == 'Y') || // tie rock
+        (opp == 'A' && mine == 'X'){ // tie paper
         result = 3;
     }
-
     // 3 wins
-    else if (opp == 'A' && mine == 'Y') ||
-        (opp == 'B' && mine == 'Z') ||
-        (opp == 'C' && mine == 'X') {
+    else if (opp == 'A' && mine == 'Y') || // rock, paper
+        (opp == 'B' && mine == 'Z') || // Paper, Scissors
+        (opp == 'C' && mine == 'X') { // scissors, Rock
             result = 6;
     }
-    else{
+    else{ // loss
         result = 0
     }
     
-    myPick + result
+    my_pick + result
 }
 
 fn main() {
@@ -55,7 +56,7 @@ mod tests {
         assert_eq!(part_one(&input), Some(15));
     }
 
-    #[test]
+    // #[test]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 2);
         assert_eq!(part_two(&input), None);
@@ -63,6 +64,9 @@ mod tests {
 
     #[test]
     fn test_score(){
-        assert_eq!(score('A', 'Y'), 8)
+        let s = 's';
+        assert_eq!(score('A', 'Y'), 8, "Paper, Win");
+        assert_eq!(score('B', 'X'), 1, "Rock, Loss");
+        assert_eq!(score('C', 'Z'), 6, "scissor, tie");
     }
 }
