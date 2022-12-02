@@ -13,22 +13,20 @@ fn score2(l: &str) -> i32 {
     match l.chars().nth(2).unwrap() {
         // outcome is char[2]
         'X' => lose_score(opp),
-        'Y' => draw_score(opp),
-        'Z' => win_score(opp),
+        'Y' => 3 + draw_score(opp),
+        'Z' => 6 + win_score(opp),
         _ => 0,
     }
 }
 
-fn draw_score(input: char) -> i32 { 3 + opp_to_int(input) }
+fn draw_score(input: char) -> i32 { opp_to_int(input) }
 fn win_score(input: char) -> i32 {
-    
-    6 + ((opp_to_int(input) + 1) % 3) + 1;
-    // match input {
-    //     'A' => 2, // rock
-    //     'B' => 3, // paper
-    //     'C' => 1, // scissors
-    //     _ => 0,
-    // }
+    match input {
+        'A' => 2, // rock
+        'B' => 3, // paper
+        'C' => 1, // scissors
+        _ => 0,
+    }
 }
 fn lose_score(input: char) -> i32 {
     match input {
@@ -92,5 +90,7 @@ mod tests {
         assert_eq!(score2("A Y"), 4, "Rock, Draw");
         assert_eq!(score2("B X"), 1, "Paper, Loss");
         assert_eq!(score2("C Z"), 7, "scissor, Win");
+        assert_eq!(score2("A Z"), 8, "rock, Win");
+        assert_eq!(score2("B Z"), 9, "paper, Win");
     }
 }
