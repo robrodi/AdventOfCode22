@@ -24,19 +24,23 @@ fn to_hash(input: &str) -> HashSet<char> {
     set
 }
 pub fn part_two(input: &str) -> Option<u32> {
-    let mut sum = 0;
     let lines: Vec<&str> = input.lines().collect();
-    // lines, groups of 3 lines,
-    for group in lines.windows(3).step_by(3) {
-        let a = to_hash(group[0]);
-        let b = to_hash(group[1]);
-        let c = group[2]
-            .chars()
-            .find(|c| a.contains(c) && b.contains(c))
-            .unwrap();
-        sum += char_score(c);
-    }
-    Some(sum)
+    Some(
+        lines
+            .windows(3)
+            .step_by(3)
+            .map(find_common_badge_score)
+            .sum(),
+    )
+}
+fn find_common_badge_score(group: &[&str]) -> u32 {
+    let a = to_hash(group[0]);
+    let b = to_hash(group[1]);
+    let c = group[2]
+        .chars()
+        .find(|c| a.contains(c) && b.contains(c))
+        .unwrap();
+    char_score(c)
 }
 
 fn main() {
