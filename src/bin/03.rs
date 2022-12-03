@@ -27,11 +27,10 @@ pub fn part_two(input: &str) -> Option<u32> {
     let mut sum = 0;
     let lines: Vec<&str> = input.lines().collect();
     // lines, groups of 3 lines,
-    for n in 0..lines.len() / 3 {
-        let start_line = n * 3;
-        let a = to_hash(lines[start_line]);
-        let b = to_hash(lines[start_line + 1]);
-        let c = lines[start_line + 2]
+    for group in lines.windows(3).step_by(3) {
+        let a = to_hash(group[0]);
+        let b = to_hash(group[1]);
+        let c = group[2]
             .chars()
             .find(|c| a.contains(c) && b.contains(c))
             .unwrap();
