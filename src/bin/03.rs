@@ -6,8 +6,8 @@ pub fn part_one(input: &str) -> Option<u32> {
 
 fn shared_char(line: &str) -> char {
     let (first, second) = line.split_at(line.len() / 2);
-    let l = to_hash(first);
-    let r = to_hash(second);
+    let l = first.chars().collect::<HashSet<char>>();
+    let r = second.chars().collect::<HashSet<char>>();
     *l.intersection(&r).next().unwrap()
 }
 
@@ -18,10 +18,9 @@ fn char_score(c: char) -> u32 {
         c as u32 - 38
     }
 }
-
+//todo: inline with like collect::<HashSet<char>>
 fn to_hash(input: &str) -> HashSet<char> {
-    let set: HashSet<char> = input.chars().collect();
-    set
+    input.chars().collect::<HashSet<char>>()
 }
 pub fn part_two(input: &str) -> Option<u32> {
     let lines: Vec<&str> = input.lines().collect();
