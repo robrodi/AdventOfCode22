@@ -16,7 +16,17 @@ fn char_score(c: char) -> u32{
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
-    None
+    // lines, groups of 3 lines, 
+    let mut sum = 0;
+    let lines: Vec<&str> = input.lines().collect();
+    for n in 0..lines.len() / 3{
+        let start_line = n * 3;
+        let a: HashSet<char> = lines[start_line].chars().collect();
+        let b: HashSet<char> = lines[start_line + 1].chars().collect();
+        let c = lines[start_line + 2].chars().filter(|c| a.contains(c) && b.contains(c)).next().unwrap();   
+        sum += char_score(c);     
+    }
+    Some(sum)
 }
 
 fn main() {
@@ -53,6 +63,6 @@ mod tests {
     #[test]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 3);
-        assert_eq!(part_two(&input), None);
+        assert_eq!(part_two(&input), Some(70));
     }
 }
