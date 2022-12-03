@@ -6,9 +6,10 @@ pub fn part_one(input: &str) -> Option<u32> {
 }
 
 fn shared_char(line: &str) -> char {
-    let l = to_hash(line.substring(0, line.len() / 2));
-    let mut r = line.substring(line.len() / 2, line.len()).chars();
-    r.find(|c| l.contains(c)).unwrap()
+    let mid = line.len() / 2;
+    let l = to_hash(line.substring(0, mid));
+    let r = to_hash(line.substring(mid, line.len()));
+    *l.intersection(&r).next().unwrap()
 }
 
 fn char_score(c: char) -> u32 {
@@ -36,6 +37,7 @@ pub fn part_two(input: &str) -> Option<u32> {
 fn find_common_badge_score(group: &[&str]) -> u32 {
     let a = to_hash(group[0]);
     let b = to_hash(group[1]);
+
     let c = group[2]
         .chars()
         .find(|c| a.contains(c) && b.contains(c))
