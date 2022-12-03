@@ -5,9 +5,7 @@ pub fn part_one(input: &str) -> Option<u32> {
 }
 
 fn shared_char(line: &str) -> char {
-    let mid = line.len() / 2;
-    let (first, second) = line.split_at(mid);
-
+    let (first, second) = line.split_at(line.len() / 2);
     let l = to_hash(first);
     let r = to_hash(second);
     *l.intersection(&r).next().unwrap()
