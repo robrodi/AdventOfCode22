@@ -1,5 +1,4 @@
 use std::collections::HashSet;
-use substring::Substring;
 
 pub fn part_one(input: &str) -> Option<u32> {
     Some(input.lines().map(shared_char).map(char_score).sum())
@@ -7,8 +6,10 @@ pub fn part_one(input: &str) -> Option<u32> {
 
 fn shared_char(line: &str) -> char {
     let mid = line.len() / 2;
-    let l = to_hash(line.substring(0, mid));
-    let r = to_hash(line.substring(mid, line.len()));
+    let (first, second) = line.split_at(mid);
+
+    let l = to_hash(first);
+    let r = to_hash(second);
     *l.intersection(&r).next().unwrap()
 }
 
