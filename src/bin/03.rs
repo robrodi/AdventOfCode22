@@ -18,12 +18,9 @@ fn char_score(c: char) -> u32 {
         c as u32 - 38
     }
 }
-//todo: inline with like collect::<HashSet<char>>
-fn to_hash(input: &str) -> HashSet<char> {
-    input.chars().collect::<HashSet<char>>()
-}
+
 pub fn part_two(input: &str) -> Option<u32> {
-    let lines: Vec<&str> = input.lines().collect();
+    let lines = input.lines().collect::<Vec<&str>>();
     Some(
         lines
             .windows(3)
@@ -33,9 +30,8 @@ pub fn part_two(input: &str) -> Option<u32> {
     )
 }
 fn find_common_badge_score(group: &[&str]) -> u32 {
-    let a = to_hash(group[0]);
-    let b = to_hash(group[1]);
-
+    let a = group[0].chars().collect::<HashSet<char>>();
+    let b = group[1].chars().collect::<HashSet<char>>();
     let c = group[2]
         .chars()
         .find(|c| a.contains(c) && b.contains(c))
