@@ -1,19 +1,32 @@
+use std::cmp::{self, max, min};
 pub fn part_one(input: &str) -> Option<u32> {
     let mut count = 0;
-    let numbers = input.split(&['\n', ',', '-'][..]);
-    let ns: Vec<u32> = numbers.map(|n| n.parse::<u32>().unwrap()).collect();
-    for pairs in ns.chunks(4){
+    
+    let ns = parse(input);
+    let chunks = ns.chunks(4);
+    for pairs in chunks{
         if (pairs[0] >= pairs[2] && pairs[1] <= pairs[3]) || (pairs[0] <= pairs[2] && pairs[1] >= pairs[3]) {
-            println!(">{}-{}< and >{}-{}< overlap", pairs[0], pairs[1], pairs[2], pairs[3]);
             count += 1;
         }
     }
-    // println!("Ranges: {:?}", ranges);
     Some(count)
 }
 
+fn parse(input: &str) -> Vec<u32>{
+    let numbers = input.split(&['\n', ',', '-'][..]);
+    let ns: Vec<u32> = numbers.map(|n| n.parse::<u32>().unwrap()).collect();
+    ns
+}
+
 pub fn part_two(input: &str) -> Option<u32> {
-    None
+    let ns = parse(input);
+    let mut count = 0;
+    for pairs in ns.chunks(4){
+        if max(pairs[0], pairs[2]) <= min(pairs[1], pairs[3]){
+            count += 1;
+        }
+    }
+    Some(count)
 }
 
 fn main() {
@@ -35,6 +48,6 @@ mod tests {
     #[test]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 4);
-        assert_eq!(part_two(&input), None);
+        assert_eq!(part_two(&input), Some(4));
     }
 }
