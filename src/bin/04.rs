@@ -1,11 +1,12 @@
 use std::cmp::{max, min};
 pub fn part_one(input: &str) -> Option<u32> {
-    let mut count = 0;
     
     let ns = parse(input);
     let chunks = ns.chunks(4);
+    let mut count = 0;
     for pairs in chunks{
-        if (pairs[0] >= pairs[2] && pairs[1] <= pairs[3]) || (pairs[0] <= pairs[2] && pairs[1] >= pairs[3]) {
+        if (pairs[0] >= pairs[2] && pairs[1] <= pairs[3])  // second pair contians first
+            || (pairs[0] <= pairs[2] && pairs[1] >= pairs[3]) { // first pair contains second
             count += 1;
         }
     }
