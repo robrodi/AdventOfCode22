@@ -14,9 +14,9 @@ pub fn part_one(input: &str) -> Option<u32> {
 }
 
 fn parse(input: &str) -> Vec<u32>{
-    let numbers = input.split(&['\n', ',', '-'][..]);
-    let ns: Vec<u32> = numbers.map(|n| n.parse::<u32>().unwrap()).collect();
-    ns
+    input.split(&['\n', ',', '-'][..])
+         .map(|n| n.parse::<u32>().unwrap())// to numbers
+         .collect::<Vec<u32>>()
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
