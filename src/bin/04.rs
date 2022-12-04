@@ -1,4 +1,4 @@
-use std::cmp::{self, max, min};
+use std::cmp::{max, min};
 pub fn part_one(input: &str) -> Option<u32> {
     let mut count = 0;
     
