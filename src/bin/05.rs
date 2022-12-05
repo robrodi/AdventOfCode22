@@ -1,5 +1,3 @@
-use std::num;
-
 type Stacks = Vec<Vec<char>>;
 type Move = [usize; 3];
 type Moves = Vec<Move>;
@@ -7,45 +5,44 @@ type Moves = Vec<Move>;
 pub fn part_one(input: &str) -> Option<u32> {
     let (mut stacks, moves) = parse(input);
 
-    for m in moves{
+    for m in moves {
         // println!("MOVE {} from {} to {}.", m[0], m[1], m[2]);
-        for i in 0..m[0]{
-            let val = &stacks[m[1] -1].pop().unwrap();
+        for _ in 0..m[0] {
+            let val = &stacks[m[1] - 1].pop().unwrap();
             // println!("  MOVE {} from {} to {}.", val, m[1], m[2]);
             stacks[m[2] - 1].push(*val);
         }
     }
-    println!("DONE?");
-    for mut stack in stacks{
-        print!("{}", stack.pop().unwrap())
-    }
-    println!("");
-
+    
+    print_top_containers(stacks);
     None
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
     let (mut stacks, moves) = parse(input);
 
-    for m in moves{
-        println!("MOVE {} from {} to {}.", m[0], m[1], m[2]);
-        let mut stack_to_move:Vec<char> = Vec::new();
-        for i in 0..m[0]{
-            let val = &stacks[m[1] -1].pop().unwrap();
-            println!("  MOVE {} from {} to {}.", val, m[1], m[2]);
+    for m in moves {
+        // println!("MOVE {} from {} to {}.", m[0], m[1], m[2]);
+        let mut stack_to_move: Vec<char> = Vec::new();
+        for _ in 0..m[0] {
+            let val = &stacks[m[1] - 1].pop().unwrap();
             stack_to_move.push(*val);
         }
-        for i in 0..m[0]{
+        for _ in 0..m[0] {
             stacks[m[2] - 1].push(stack_to_move.pop().unwrap());
         }
     }
+
+    print_top_containers(stacks);
+    None
+}
+
+fn print_top_containers(stacks:Stacks) {
     println!("DONE?");
-    for mut stack in stacks{
+    for mut stack in stacks {
         print!("{}", stack.pop().unwrap())
     }
-    println!("");
-
-    None
+    println!();
 }
 pub fn parse(input: &str) -> (Stacks, Moves) {
     let mut parts = input.split("\n\n");
@@ -57,35 +54,32 @@ pub fn parse(input: &str) -> (Stacks, Moves) {
     let moves = parse_moves(moves);
 
     (stacks, moves)
-
 }
-fn parse_stacks(input: &str) -> Stacks { //} -> Stacks{
-    println!("Stacks:");
-
+fn parse_stacks(input: &str) -> Stacks {
     let lines = input.lines().collect::<Vec<&str>>();
-    let num_stacks = (lines[0].len() + 1)/ 4;
+    let num_stacks = (lines[0].len() + 1) / 4;
     let mut stacks: Stacks = vec![Vec::new(); num_stacks];
-    for line in &lines[..lines.len() -1]{
+    for line in &lines[..lines.len() - 1] {
         let l = line.chars().collect::<Vec<char>>();
-        for i in 0..num_stacks{
-            let val = l[i*4 + 1];
-            if val != ' '{
+        for i in 0..num_stacks {
+            let val = l[i * 4 + 1];
+            if val != ' ' {
                 stacks[i].push(val);
             }
         }
     }
     let mut result: Stacks = Vec::new();
-    
-    for mut stack in stacks{
+
+    for mut stack in stacks {
         stack.reverse();
         result.push(stack);
     }
     result
 }
-fn parse_moves(input: &str) -> Vec<Move>{
+fn parse_moves(input: &str) -> Vec<Move> {
     let mut result: Moves = Vec::new();
-    for mut line in input.lines(){
-        let tokens = line.split(" ").collect::<Vec<&str>>();
+    for line in input.lines() {
+        let tokens = line.split(' ').collect::<Vec<&str>>();
         let num = tokens[1].parse::<usize>().unwrap();
         let source = tokens[3].parse::<usize>().unwrap();
         let target = tokens[5].parse::<usize>().unwrap();
