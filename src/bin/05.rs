@@ -1,28 +1,45 @@
 use std::num;
 
 type Stacks = Vec<Vec<char>>;
+type Move = [usize; 3];
+type Moves = Vec<Move>;
 
 pub fn part_one(input: &str) -> Option<u32> {
-    parse(input);
+    let (mut stacks, moves) = parse(input);
+
+    for m in moves{
+        println!("MOVE {} from {} to {}.", m[0], m[1], m[2]);
+        for i in 0..m[0]{
+            let val = &stacks[m[1] -1].pop().unwrap();
+            println!("  MOVE {} from {} to {}.", val, m[1], m[2]);
+            stacks[m[2] - 1].push(*val);
+        }
+    }
+    println!("DONE?");
+    for mut stack in stacks{
+        print!("{}", stack.pop().unwrap())
+    }
+    println!("");
+
     None
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
     None
 }
-pub fn parse(input: &str)
-{
+pub fn parse(input: &str) -> (Stacks, Moves) {
     let mut parts = input.split("\n\n");
     let stacks = parts.next().unwrap();
 
-    parse_stacks(stacks);
+    let stacks = parse_stacks(stacks);
 
     let moves = parts.last().unwrap();
+    let moves = parse_moves(moves);
 
-
+    (stacks, moves)
 
 }
-pub fn parse_stacks(input: &str) { //} -> Stacks{
+fn parse_stacks(input: &str) -> Stacks { //} -> Stacks{
     println!("Stacks:");
 
     let lines = input.lines().collect::<Vec<&str>>();
@@ -37,11 +54,25 @@ pub fn parse_stacks(input: &str) { //} -> Stacks{
             }
         }
     }
-    for stack in stacks{
-        println!("Stack: {:#?}", stack);
+    let mut result: Stacks = Vec::new();
+    
+    for mut stack in stacks{
+        stack.reverse();
+        result.push(stack);
     }
+    result
 }
-
+fn parse_moves(input: &str) -> Vec<Move>{
+    let mut result: Moves = Vec::new();
+    for mut line in input.lines(){
+        let tokens = line.split(" ").collect::<Vec<&str>>();
+        let num = tokens[1].parse::<usize>().unwrap();
+        let source = tokens[3].parse::<usize>().unwrap();
+        let target = tokens[5].parse::<usize>().unwrap();
+        result.push([num, source, target]);
+    }
+    result
+}
 fn main() {
     let input = &advent_of_code::read_file("inputs", 5);
     advent_of_code::solve!(1, part_one, input);
