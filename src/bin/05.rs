@@ -8,10 +8,10 @@ pub fn part_one(input: &str) -> Option<u32> {
     let (mut stacks, moves) = parse(input);
 
     for m in moves{
-        println!("MOVE {} from {} to {}.", m[0], m[1], m[2]);
+        // println!("MOVE {} from {} to {}.", m[0], m[1], m[2]);
         for i in 0..m[0]{
             let val = &stacks[m[1] -1].pop().unwrap();
-            println!("  MOVE {} from {} to {}.", val, m[1], m[2]);
+            // println!("  MOVE {} from {} to {}.", val, m[1], m[2]);
             stacks[m[2] - 1].push(*val);
         }
     }
@@ -25,6 +25,26 @@ pub fn part_one(input: &str) -> Option<u32> {
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
+    let (mut stacks, moves) = parse(input);
+
+    for m in moves{
+        println!("MOVE {} from {} to {}.", m[0], m[1], m[2]);
+        let mut stack_to_move:Vec<char> = Vec::new();
+        for i in 0..m[0]{
+            let val = &stacks[m[1] -1].pop().unwrap();
+            println!("  MOVE {} from {} to {}.", val, m[1], m[2]);
+            stack_to_move.push(*val);
+        }
+        for i in 0..m[0]{
+            stacks[m[2] - 1].push(stack_to_move.pop().unwrap());
+        }
+    }
+    println!("DONE?");
+    for mut stack in stacks{
+        print!("{}", stack.pop().unwrap())
+    }
+    println!("");
+
     None
 }
 pub fn parse(input: &str) -> (Stacks, Moves) {
@@ -92,6 +112,6 @@ mod tests {
     #[test]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 5);
-        assert_eq!(part_two(&input), None);
+        assert_eq!(part_two(&input), Some(6));
     }
 }
