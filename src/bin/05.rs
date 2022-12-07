@@ -13,7 +13,7 @@ pub fn part_one(input: &str) -> Option<u32> {
             stacks[m[2] - 1].push(*val);
         }
     }
-    
+
     print_top_containers(stacks);
     None
 }
@@ -37,7 +37,7 @@ pub fn part_two(input: &str) -> Option<u32> {
     None
 }
 
-fn print_top_containers(stacks:Stacks) {
+fn print_top_containers(stacks: Stacks) {
     println!("DONE?");
     for mut stack in stacks {
         print!("{}", stack.pop().unwrap())
