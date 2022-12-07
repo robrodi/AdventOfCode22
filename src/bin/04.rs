@@ -1,29 +1,31 @@
 use std::cmp::{max, min};
 pub fn part_one(input: &str) -> Option<u32> {
-    
     let ns = parse(input);
     let chunks = ns.chunks(4);
     let mut count = 0;
-    for pairs in chunks{
+    for pairs in chunks {
         if (pairs[0] >= pairs[2] && pairs[1] <= pairs[3])  // second pair contians first
-            || (pairs[0] <= pairs[2] && pairs[1] >= pairs[3]) { // first pair contains second
+            || (pairs[0] <= pairs[2] && pairs[1] >= pairs[3])
+        {
+            // first pair contains second
             count += 1;
         }
     }
     Some(count)
 }
 
-fn parse(input: &str) -> Vec<u32>{
-    input.split(&['\n', ',', '-'][..])
-         .map(|n| n.parse::<u32>().unwrap())// to numbers
-         .collect::<Vec<u32>>()
+fn parse(input: &str) -> Vec<u32> {
+    input
+        .split(&['\n', ',', '-'][..])
+        .map(|n| n.parse::<u32>().unwrap()) // to numbers
+        .collect::<Vec<u32>>()
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
     let ns = parse(input);
     let mut count = 0;
-    for pairs in ns.chunks(4){
-        if max(pairs[0], pairs[2]) <= min(pairs[1], pairs[3]){
+    for pairs in ns.chunks(4) {
+        if max(pairs[0], pairs[2]) <= min(pairs[1], pairs[3]) {
             count += 1;
         }
     }
