@@ -38,7 +38,8 @@ fn main() {
     advent_of_code::solve!(2, part_two, input);
 }
 
-#[cfg(test)]
+/*
+// #[cfg(test)]
 mod tests {
     use super::*;
 
@@ -54,3 +55,4 @@ mod tests {
         assert_eq!(part_two(&input), Some(4));
     }
 }
+ */
