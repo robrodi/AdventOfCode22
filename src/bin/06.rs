@@ -1,3 +1,4 @@
+#![allow(clippy::explicit_counter_loop)]
 use itertools::Itertools;
 
 pub fn part_one(input: &str) -> Option<u32> {
