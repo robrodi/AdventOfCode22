@@ -114,7 +114,23 @@ impl Grid {
 //     vec[index]
 // }
 
-pub fn part_two(_input: &str) -> Option<i32> {
+pub fn part_two(input: &str) -> Option<i32> {
+    let grid = Grid::new(input);
+    for y in 1..(grid.height - 1){
+        for x in 1..(grid.width -1){
+            let value = grid.get(x, y);
+
+            let mut scenic = 0;
+            // up
+            for i in 0..(x-1){
+
+            }
+            // down
+            // left
+            // right
+
+        }
+    }
     None
 }
 
@@ -137,6 +153,6 @@ mod tests {
     #[test]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 8);
-        assert_eq!(part_two(&input), None);
+        assert_eq!(part_two(&input), Some(8));
     }
 }
