@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 #![allow(clippy::explicit_counter_loop)]
 use itertools::Itertools;
 
