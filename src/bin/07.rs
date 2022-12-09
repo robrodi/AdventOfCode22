@@ -1,3 +1,5 @@
+#![allow(unused_imports)]
+#![allow(dead_code)]
 use std::collections::HashSet;
 
 pub fn part_one(input: &str) -> Option<u32> {
@@ -132,17 +134,17 @@ fn main() {
     advent_of_code::solve!(2, part_two, input);
 }
 
-#[cfg(test)]
+// #[cfg(test)]
 mod tests {
     use super::*;
 
-    #[test]
+    // #[test]
     fn test_part_one() {
         let input = advent_of_code::read_file("examples", 7);
         assert_eq!(part_one(&input), Some(95437));
     }
 
-    #[test]
+    // #[test]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 7);
         assert_eq!(part_two(&input), Some(24933642));

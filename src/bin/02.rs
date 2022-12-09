@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 pub fn part_one(input: &str) -> Option<i32> {
     let scores: Vec<i32> = input.lines().map(score_l).collect();
     Some(scores.iter().sum())
