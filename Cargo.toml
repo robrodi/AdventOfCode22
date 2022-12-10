@@ -11,4 +11,4 @@ publish = false
 pico-args = "0.5.0"
 substring = "1.4.5"
 itertools = "0.10.5"
-trees = "0.2.1"
+euclid = "0.22.7"

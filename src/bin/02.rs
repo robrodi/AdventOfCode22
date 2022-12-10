@@ -73,19 +73,19 @@ fn main() {
 mod tests {
     use super::*;
 
-    #[test]
+    // #[test]
     fn test_part_one() {
         let input = advent_of_code::read_file("examples", 2);
         assert_eq!(part_one(&input), Some(15));
     }
 
-    #[test]
+    // #[test]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 2);
         assert_eq!(part_two(&input), Some(12));
     }
 
-    #[test]
+    // #[test]
     fn test_score() {
         assert_eq!('A'.to_digit(16).unwrap() - 9, 1, "a");
         assert_eq!('B'.to_digit(16).unwrap(), 11, "b");
@@ -96,7 +96,7 @@ mod tests {
         assert_eq!(score('B', 'X'), 1, "Rock, Loss");
         assert_eq!(score('C', 'Z'), 6, "scissor, tie");
     }
-    #[test]
+    // #[test]
     fn test_score_2() {
         assert_eq!(score2("A Y"), 4, "Rock, Draw");
         assert_eq!(score2("B X"), 1, "Paper, Loss");

@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use std::collections::HashSet;
 
 use itertools::Itertools;
@@ -184,28 +185,28 @@ fn main() {
     advent_of_code::solve!(2, part_two, input);
 }
 
-#[cfg(test)]
+// #[cfg(test)]
 mod tests {
     use super::*;
 
-    #[test]
+    // #[test]
     fn test_part_one() {
         let input = advent_of_code::read_file("examples", 8);
         assert_eq!(part_one(&input), Some(21));
     }
 
-    #[test]
+    // #[test]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 8);
         assert_eq!(part_two(&input), Some(8));
     }
-    #[test]
+    // #[test]
     fn test_2_d() {
         let i = [3, 5, 3].to_vec();
         let val = ss(5, &i);
         assert_eq!(Some(val), Some(2));
     }
-    #[test]
+    // #[test]
     fn test_part_two_r() {
         let input = advent_of_code::read_file("examples", 8);
         let grid = Grid::new(&input);
