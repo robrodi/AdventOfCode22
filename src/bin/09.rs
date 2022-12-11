@@ -1,3 +1,6 @@
+#![allow(unused_imports)]
+#![allow(dead_code)]
+
 use itertools::Itertools;
 use std::collections::HashSet;
 use substring::Substring;
@@ -100,7 +103,7 @@ fn main() {
     advent_of_code::solve!(1, part_one, input);
     advent_of_code::solve!(2, part_two, input);
 }
-
+/*
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -125,3 +128,4 @@ U 20";
         assert_eq!(part_two(&other_input), Some(36));
     }
 }
+ */
