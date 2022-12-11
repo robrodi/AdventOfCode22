@@ -1,3 +1,5 @@
+use std::slice::Windows;
+
 use colored::Colorize;
 
 pub fn part_one(input: &str) -> Option<u32> {
@@ -15,6 +17,10 @@ pub fn part_one(input: &str) -> Option<u32> {
 
 
 pub fn part_two(input: &str) -> Option<u32> {
+    let mut cpu = Processor::new();
+    cpu.exec(input);
+    let mut gpu = GPU::new(40);
+    gpu.render(cpu.register_history);
     None
 }
 
@@ -58,6 +64,27 @@ impl Processor{
                 }
             };
         }
+    }
+}
+
+struct GPU{ //?
+    width: usize
+}
+impl GPU{
+    fn new(width: usize) -> Self{
+        Self { width }
+    }
+    fn render(&self, register_history: Vec<i32>){
+        for i in 0..register_history.len(){
+            if i % self.width == 0 { println!();}
+            let value = register_history[i];
+            let pixel = i as i32 % 40;
+            if self.is_hit(pixel, value) { print!("#");} else {print!(".");}
+        }
+    }
+    fn is_hit(&self, pixel: i32, value: i32) -> bool {
+        // direct hit, one left, one right
+        pixel == value || (pixel % 40 != 0 && pixel - 1 == value) || (pixel % 40 != 0 && pixel + 1 == value)
     }
 }
 fn main() {
