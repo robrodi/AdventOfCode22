@@ -1,4 +1,5 @@
 #![allow(unused_imports)]
+#![allow(dead_code)]
 #![allow(clippy::explicit_counter_loop)]
 use itertools::Itertools;
 
@@ -31,7 +32,7 @@ fn main() {
 mod tests {
     use super::*;
 
-    #[test]
+    // #[test]
     fn test_part_one() {
         let input = advent_of_code::read_file("examples", 6);
         assert_eq!(part_one(&input), Some(7));
@@ -41,8 +42,7 @@ mod tests {
         assert_eq!(part_one("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw"), Some(11));
     }
 
-    //
-    #[test]
+    // #[test]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 6);
         assert_eq!(part_two(&input), Some(19));

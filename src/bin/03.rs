@@ -1,4 +1,5 @@
 #![allow(unused_imports)]
+#![allow(dead_code)]
 use std::collections::HashSet;
 
 pub fn part_one(input: &str) -> Option<u32> {
@@ -50,19 +51,19 @@ fn main() {
 mod tests {
     use super::*;
 
-    #[test]
+    // #[test]
     fn test_part_one() {
         let input = advent_of_code::read_file("examples", 3);
         assert_eq!(part_one(&input), Some(157));
     }
-    #[test]
+    // #[test]
     fn test_shared_chars_one() {
         assert_eq!(shared_char("vJrwpWtwJgWrhcsFMMfFFhFp"), 'p');
         assert_eq!(shared_char("jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL"), 'L');
         assert_eq!(shared_char("PmmdzqPrVvPwwTWBwg"), 'P');
         assert_eq!(shared_char("wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn"), 'v');
     }
-    #[test]
+    // #[test]
     fn test_char_score() {
         // A = 65
         // a = 97
@@ -70,7 +71,7 @@ mod tests {
         assert_eq!(char_score('A'), 27, "A");
     }
 
-    #[test]
+    // #[test]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 3);
         assert_eq!(part_two(&input), Some(70));

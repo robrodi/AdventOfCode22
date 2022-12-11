@@ -1,3 +1,5 @@
+#![allow(unused_imports)]
+#![allow(dead_code)]
 use std::collections::HashSet;
 
 use itertools::Itertools;
@@ -105,16 +107,16 @@ impl Grid {
     fn get_index(&self, y: i32, x: i32) -> i32 {
         self.width * y + x
     }
-    fn scenic(&self, y: i32, x:i32) -> i32{
+    fn scenic(&self, y: i32, x: i32) -> i32 {
         let i = self.get_index(y, x) as usize;
-        
+
         let row_start = i - (i % self.width as usize);
         let row = self.grid.iter().skip(row_start).take(self.width as usize);
 
         // r
         let value = self.get(x, y);
         println!("({}, {}), val: {}", x, y, value);
-        let r = self.scenic_score(value,  &row.copied().skip(i - row_start + 1).collect_vec());
+        let r = self.scenic_score(value, &row.copied().skip(i - row_start + 1).collect_vec());
 
         let row = self.grid.iter().skip(row_start).take(self.width as usize);
         let mut l1 = row.copied().take(i - row_start).collect_vec();
@@ -123,25 +125,33 @@ impl Grid {
 
         // ok to here.
         // u
-        let col = self.grid.iter().skip(x as usize).step_by(self.width as usize);
+        let col = self
+            .grid
+            .iter()
+            .skip(x as usize)
+            .step_by(self.width as usize);
         let mut u1 = col.copied().take((y) as usize).collect_vec();
         u1.reverse();
         let u = self.scenic_score(value, &u1);
 
         // d
-        let col = self.grid.iter().skip(x as usize).step_by(self.width as usize);
+        let col = self
+            .grid
+            .iter()
+            .skip(x as usize)
+            .step_by(self.width as usize);
         let d1 = col.copied().skip((y + 1) as usize).collect_vec();
         let d = self.scenic_score(value, &d1);
         println!("r {} l {} u {} d {}", r, l, u, d);
         r * l * u * d
     }
-    fn scenic_score(&self, value: i32, view: &Vec<i32>) -> i32{
-       ss(value, view)
+    fn scenic_score(&self, value: i32, view: &Vec<i32>) -> i32 {
+        ss(value, view)
     }
 }
-fn ss(value: i32, view: &Vec<i32>) -> i32{
+fn ss(value: i32, view: &Vec<i32>) -> i32 {
     let mut count = 0;
-    for i in view{
+    for i in view {
         count += 1;
         if value <= *i {
             break;
@@ -158,17 +168,17 @@ fn ss(value: i32, view: &Vec<i32>) -> i32{
 pub fn part_two(input: &str) -> Option<i32> {
     let grid = Grid::new(input);
     let mut max = 0;
-    for y in 1..(grid.height - 1){
-        for x in 1..(grid.width -1){
+    for y in 1..(grid.height - 1) {
+        for x in 1..(grid.width - 1) {
             let scenic: i32 = grid.scenic(y, x);
-            if scenic > max {max = scenic};
+            if scenic > max {
+                max = scenic
+            };
             // get the list of items to the right.
         }
     }
     Some(max)
 }
-
-
 
 fn main() {
     let input = &advent_of_code::read_file("inputs", 8);
@@ -176,34 +186,32 @@ fn main() {
     advent_of_code::solve!(2, part_two, input);
 }
 
-#[cfg(test)]
+// #[cfg(test)]
 mod tests {
     use super::*;
 
-    #[test]
+    // #[test]
     fn test_part_one() {
         let input = advent_of_code::read_file("examples", 8);
         assert_eq!(part_one(&input), Some(21));
     }
 
-    #[test]
+    // #[test]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 8);
         assert_eq!(part_two(&input), Some(8));
     }
-    #[test]
-    fn test_2_d(){
-        let i = [3,5,3].to_vec();
+    // #[test]
+    fn test_2_d() {
+        let i = [3, 5, 3].to_vec();
         let val = ss(5, &i);
         assert_eq!(Some(val), Some(2));
-
     }
-    #[test]
+    // #[test]
     fn test_part_two_r() {
         let input = advent_of_code::read_file("examples", 8);
         let grid = Grid::new(&input);
         let val = grid.scenic(3, 2);
         assert_eq!(Some(val), Some(8));
     }
-   
 }
