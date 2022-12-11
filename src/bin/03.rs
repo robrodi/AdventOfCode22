@@ -1,4 +1,5 @@
 #![allow(unused_imports)]
+#![allow(dead_code)]
 use std::collections::HashSet;
 
 pub fn part_one(input: &str) -> Option<u32> {

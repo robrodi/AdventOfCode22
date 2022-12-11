@@ -17,7 +17,6 @@ fn do_thing(input: &str, rope_length: usize) -> Option<u32> {
 
     visited.insert(*knots.last().unwrap());
     for (dir, num) in parse(input) {
-        println!("{} {} -> {:?}", dir, num, head);
         for _step in 0..num {
             // move head.
             match dir {
@@ -27,8 +26,9 @@ fn do_thing(input: &str, rope_length: usize) -> Option<u32> {
                 'R' => head.x += 1,
                 _ => panic!("WTF"),
             }
+            // move rope
             let mut current = head;
-            for i in 0..rope_length {
+            (0..rope_length).for_each(|i| {
                 let last = current;
                 // let mut last = if (i == 0) {&head} else {&knots[i -1]};
 
@@ -66,11 +66,11 @@ fn do_thing(input: &str, rope_length: usize) -> Option<u32> {
                     }
                 }
                 current = *tail;
-            }
+            });
 
             let last = knots.last().unwrap(); //Point::new(0, 0);
                                               // move tail 1 step towards head
-            println!("Head: {:?} Tail: {:?}", head, last);
+                                              // println!("Head: {:?} Tail: {:?}", head, last);
 
             visited.insert(*last);
         }
@@ -83,7 +83,7 @@ fn parse(input: &str) -> Vec<(char, i32)> {
         .lines()
         .map(|l| {
             (
-                l.chars().nth(0).unwrap(),
+                l.chars().next().unwrap(),
                 l.substring(2, l.len()).parse::<i32>().unwrap(),
             )
         })
