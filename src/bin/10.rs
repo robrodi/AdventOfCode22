@@ -1,5 +1,3 @@
-use std::slice::Windows;
-
 use colored::Colorize;
 
 pub fn part_one(input: &str) -> Option<u32> {
@@ -24,20 +22,20 @@ pub fn part_one(input: &str) -> Option<u32> {
 pub fn part_two(input: &str) -> Option<u32> {
     let mut cpu = Processor::new();
     cpu.exec(input);
-    let mut gpu = GPU::new(40);
+    let gpu = Gpu::new(40);
     gpu.render(cpu.register_history);
     None
 }
 
 struct Processor {
-    X: i32,
+    x: i32,
     clock: usize,
     register_history: Vec<i32>,
 }
 impl Processor {
     fn new() -> Self {
         Self {
-            X: 1,
+            x: 1,
             clock: 0,
             register_history: vec![1], // register starts at 1
         }
@@ -45,35 +43,35 @@ impl Processor {
     fn noop(&mut self) {
         println!(
             "{} clock [{:0>3}] Register      {: >3}",
-            format!("NOOP ").blue(),
+            "NOOP ".blue(),
             self.clock,
-            self.X
+            self.x
         );
 
         self.clock += 1;
-        self.register_history.push(self.X);
+        self.register_history.push(self.x);
     }
     fn add_x(&mut self, value: i32) {
         println!(
             "{} clock [{:0>3}] Register(pre) {:0>3} value: {: >4} ",
-            format!("ADDX=").red(),
+            "ADDX=".red(),
             self.clock,
-            self.X,
+            self.x,
             value
         );
         self.clock += 1;
-        self.register_history.push(self.X);
+        self.register_history.push(self.x);
 
         println!(
             "{} clock [{:0>3}] Register(pre) {: >3} value: {: >4} ",
-            format!("ADDX+").red(),
+            "ADDX+".red(),
             self.clock,
-            self.X,
+            self.x,
             value
         );
         self.clock += 1;
-        self.X += value;
-        self.register_history.push(self.X);
+        self.x += value;
+        self.register_history.push(self.x);
     }
     fn exec(&mut self, input: &str) {
         for m in input.lines() {
@@ -90,11 +88,11 @@ impl Processor {
     }
 }
 
-struct GPU {
+struct Gpu {
     //?
     width: usize,
 }
-impl GPU {
+impl Gpu {
     fn new(width: usize) -> Self {
         Self { width }
     }
